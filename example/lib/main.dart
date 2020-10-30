@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:icontextview/icontextview.dart';
 
 import 'common/icon_text_text_icon/icon_text_view.dart';
 
@@ -14,40 +10,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
-
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await Icontextview.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final Color color = Color(0xFF00B0FF);
+    final Color textColor = Colors.white;
+    final double textSize = 15;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('左右两边带有Icon与Text的View'),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -55,19 +27,39 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               children: <Widget>[
                 Container(
+                    color: Colors.blue,
+                    padding: EdgeInsets.all(10),
+                    height: 160,
+                    alignment: Alignment.center,
+                    child: Text("基本使用：\n\nIconTextView(\n\t\t\t\tleftText: \"检查版本\",\n\t\t\t\tonPressed: () {}\n)", style: TextStyle(color: Colors.white, fontSize: 16),)
+                ),
+                Container(
+                  color: color,
                   padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  child: Text("示例: leftText: \"xxx\",onPressed: () {},"),
+                  margin: EdgeInsets.only(top: 0, bottom: 0),
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: <Widget>[
+                      Text("示例: 左边[文字]，右边[箭头]", style: TextStyle(color: textColor, fontSize: textSize)),
+                      Icon(Icons.arrow_downward, color: Colors.white,),
+                    ],
+                  )
                 ),
                 IconTextView(
                   leftText: "检查版本",
                   onPressed: () {},
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "示例:\nleftIcon: Icon(Icons.settings),\nleftTextWidget: Text(\"xxx\"),\nonPressed: () {},"),
+                    color: color,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: <Widget>[
+                        Text("示例: 左边[Icon组件,Text组件]，右边[箭头]", style: TextStyle(color: textColor, fontSize: textSize)),
+                        Icon(Icons.arrow_downward, color: Colors.white,),
+                      ],
+                    )
                 ),
                 IconTextView(
                   leftIcon: Icon(Icons.settings),
@@ -75,10 +67,16 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {},
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "示例:\nleftIcon: Icon(Icons.settings),\nleftTextWidget: Text(\"xxx\"),\nrightText: \"v1.0.1\",\nonPressed: () {},"),
+                    color: color,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: <Widget>[
+                        Text("示例: 左边[Icon组件,Text组件]，右边[文字,箭头]", style: TextStyle(color: textColor, fontSize: textSize)),
+                        Icon(Icons.arrow_downward, color: Colors.white,),
+                      ],
+                    )
                 ),
                 IconTextView(
                   leftIcon: Icon(Icons.settings),
@@ -87,10 +85,16 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {},
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "示例: \nleftIconAsset: \"assets/images/flutter_icon_laba.png\", \nleftTextWidget: Text(\"xxx\"), \nrightText: \"v1.0.1\", \nonPressed: () {},"),
+                    color: color,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: <Widget>[
+                        Text("示例: 左边[图片资源地址,Text组件]，右边[文字,箭头]", style: TextStyle(color: textColor, fontSize: textSize)),
+                        Icon(Icons.arrow_downward, color: Colors.white,),
+                      ],
+                    )
                 ),
                 IconTextView(
                   leftIconAsset: "assets/images/flutter_icon_laba.png",
@@ -99,10 +103,16 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () {},
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                      "示例:\nleftIcon: Icon(Icons.settings),\nleftTextWidget: Text(\"xxx\"),\nrightText: \"v1.0.1\",\nrightIcon: Icon(Icons.arrow_forward),\nshotArrow: false,\nonPressed: (){},"),
+                    color: color,
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top: 0, bottom: 0),
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: <Widget>[
+                        Text("示例: 左边[Icon组件,Text组件]，右边[文字,Icon组件] 隐藏默认箭头", style: TextStyle(color: textColor, fontSize: textSize)),
+                        Icon(Icons.arrow_downward, color: Colors.white,),
+                      ],
+                    )
                 ),
                 IconTextView(
                   leftIcon: Icon(Icons.settings),
